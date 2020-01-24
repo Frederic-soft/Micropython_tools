@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+#
+import os
+import sys
+import serial.tools.list_ports
+
+"""
+Usage: pyload [--device <device>] file.py
+Load file.py on "device". If device is not given, looks for Micropython devices
+and pick the first one (but prints all devices found).
+"""
+ports = serial.tools.list_ports.comports()
+pyports = []
+if '--device' in sys.argv :
+  cmd = "pyboard " + " ".join('"'+arg+'"' for arg in sys.argv[1:])
+else:
+  for p in ports :
+    if p.manufacturer in ['Micro Python', 'MicroPython', 'OpenMV'] \
+    or 'USB to UART' in p.description :
+      pyports.append(p)
+  if len(pyports) == 0 :
+    print("No MicroPython device found")
+    for p in ports :
+      print("  " + p.device
+          + " - " + (p.manufacturer if p.manufacturer is not None
+                                    else "No manufacturer")
+          + " / "
+          + (p.description if p.description is not None
+                           else "No description")
+      )
+    sys.exit(1)
+  if len(pyports) > 1 :
+    print("MicroPython devices found:")
+    for p in pyports :
+      print("  " + p.device + " - " + p.description)
+
+  cmd = "pyboard --device " + pyports[0].device + " " + " ".join('"'+arg+'"' for arg in sys.argv[1:])
+
+print(cmd)
+os.system(cmd)
