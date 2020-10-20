@@ -16,7 +16,8 @@ if '--device' in sys.argv :
 else:
   for p in ports :
     if p.manufacturer in ['Micro Python', 'MicroPython', 'OpenMV', 'Silicon Labs'] \
-    or 'USB to UART' in p.description :
+    or 'USB to UART' in p.description \
+    or 'BBC micro:bit' in p.description :
       pyports.append(p)
   if len(pyports) == 0 :
     print("No MicroPython device found")
