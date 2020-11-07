@@ -1,0 +1,1 @@
+python.exe ($PSCommandPath -replace '\.ps1$') $Args; exit $LASTEXITCODE
