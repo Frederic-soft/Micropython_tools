@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import os
+import platform
 import serial.tools.list_ports
 
 """
@@ -35,12 +36,14 @@ def main():
       print("MicroPython devices found:")
       for p in pyports :
         print("  " + p.device + " - " + p.description)
-# os.system('minicom -D '+pyports[0].device)
   if (pyports[0].manufacturer is None) :
     print("Connecting to "+pyports[0].device)
   else :
     print("Connecting to "+pyports[0].device+" ("+pyports[0].manufacturer+")")
-  os.system('picocom '+pyports[0].device+' -b115200')
+  if platform.system() == 'Windows' :
+    os.system('putty -serial '+pyports[0].device+' -sercfg 115200')
+  else :
+    os.system('picocom '+pyports[0].device+' -b115200')
 
 if __name__ == "__main__":
     main()

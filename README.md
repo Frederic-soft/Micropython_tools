@@ -8,7 +8,7 @@ When no Micropython device is found, information about the available serial port
 
 When several Micropython devices are found, the first one is chosen, but information about the other devices is displayed.
 
-For each command, it is possible to connect to a specific device by giving its path on the command line.
+The device can be specified using the **--device <dev>** option (with two '-') for **pyload**, or as the argument of **pyterm** and **pyrshell**. For instance **pyload --device COM3 code.py**, or **pyterm COM3** to force the use of a pyboard connected to port COM3 on Windows.
 
 These tools rely on rshell and picocom:
 ```sh
@@ -21,6 +21,10 @@ or:
 ```sh
 brew install picocom
 ```
+
+On Windows, **pyterm** relies on [putty](https://www.putty.org/).
+
+The PowerShell scripts **pyterm.ps1**, **pyload.ps1**, and **pyrshell.ps1** can be used on Windows.
 
 I have written a Pyboard/ESP32 tutorial in French for my students:
 <https://wdi.centralesupelec.fr/boulanger/MicroPython/TutorialPyboard>
