@@ -25,6 +25,7 @@ brew install picocom
 On Windows, **pyterm** relies on [putty](https://www.putty.org/).
 
 The PowerShell scripts **pyterm.ps1**, **pyload.ps1**, and **pyrshell.ps1** can be used on Windows.
+[This video](https://wdi.centralesupelec.fr/boulanger/downloads/MicroPython/PyboardWinX.mp4) shows how to use ```pyload``` and ```pyterm``` on Windows X.
 
 I have written a Pyboard/ESP32 tutorial in French for my students:
 <https://wdi.centralesupelec.fr/boulanger/MicroPython/TutorialPyboard>
