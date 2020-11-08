@@ -15,7 +15,11 @@ if '--device' in sys.argv :
   cmd = "pyboard " + " ".join('"'+arg+'"' for arg in sys.argv[1:])
 else:
   for p in ports :
-    if p.manufacturer in ['Micro Python', 'MicroPython', 'OpenMV', 'Silicon Labs'] \
+    if p.manufacturer in ['Micro Python',\
+                          'MicroPython',\
+                          'OpenMV',\
+                          'Silicon Labs',\
+                          'Microsoft'] \
     or 'USB to UART' in p.description \
     or 'BBC micro:bit' in p.description :
       pyports.append(p)

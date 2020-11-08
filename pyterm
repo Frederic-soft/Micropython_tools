@@ -17,7 +17,11 @@ def main():
     ports = serial.tools.list_ports.comports()
     pyports = []
     for p in ports :
-      if p.manufacturer in ['Micro Python', 'MicroPython', 'OpenMV', 'Silicon Labs'] \
+      if p.manufacturer in ['Micro Python',\
+                            'MicroPython',\
+                            'OpenMV',\
+                            'Silicon Labs',\
+                            'Microsoft'] \
       or 'USB to UART' in p.description \
       or 'BBC micro:bit' in p.description :
         pyports.append(p)
