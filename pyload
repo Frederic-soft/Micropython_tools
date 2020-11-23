@@ -11,9 +11,22 @@ and pick the first one (but prints all devices found).
 """
 ports = serial.tools.list_ports.comports()
 pyports = []
+idx = None
+cmd = None
+args = sys.argv
+
 if '--device' in sys.argv :
-  cmd = "pyboard " + " ".join('"'+arg+'"' for arg in sys.argv[1:])
-else:
+  p = sys.argv.index('--device') + 1
+  if p >= len(sys.argv) :
+  	print("# Error: device path or index expected after '--device'")
+  	sys.exit(1)
+  if sys.argv[p].isdigit() :
+  	idx = int(sys.argv[p])
+  	args = sys.argv[0:p-1]+sys.argv[p+1:]
+  else:
+  	cmd = "pyboard " + " ".join('"'+arg+'"' for arg in sys.argv[1:])
+  	
+if cmd is None :
   for p in ports :
     if p.manufacturer in ['Micro Python',\
                           'MicroPython',\
@@ -36,10 +49,14 @@ else:
     sys.exit(1)
   if len(pyports) > 1 :
     print("MicroPython devices found:")
+    i = 0
     for p in pyports :
-      print("  " + p.device + " - " + p.description)
+      print("  (" + str(i) + ") " + p.device + " - " + p.description)
+      i += 1
+    if idx is None :
+      idx = 0
 
-  cmd = "pyboard --device " + pyports[0].device + " " + " ".join('"'+arg+'"' for arg in sys.argv[1:])
+  cmd = "pyboard --device " + pyports[idx].device + " " + " ".join('"'+arg+'"' for arg in args[1:])
 
 print(cmd)
 os.system(cmd)

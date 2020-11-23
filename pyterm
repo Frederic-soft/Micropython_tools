@@ -5,12 +5,12 @@ import platform
 import serial.tools.list_ports
 
 """
-Usage: pyterm [device]
+Usage: pyterm [device|device_index]
 Calls picocom on "device". If device is not given, looks for Micropython or openMV 
 devices and pick the first one (but prints all devices found).
 """
 def main():
-  if len(sys.argv) > 1:
+  if (len(sys.argv) > 1) and not sys.argv[1].isdigit() :
     pyports = [serial.tools.list_ports_common.ListPortInfo()]
     pyports[0].device = sys.argv[1]
   else:
@@ -38,16 +38,24 @@ def main():
       sys.exit(1)
     if len(pyports) > 1 :
       print("MicroPython devices found:")
+      idx = 0
       for p in pyports :
-        print("  " + p.device + " - " + p.description)
-  if (pyports[0].manufacturer is None) :
-    print("Connecting to "+pyports[0].device)
+        print("  (" + str(idx) + ") " + p.device + " - " + p.description)
+        idx += 1
+  idx = 0
+  if len(sys.argv) > 1 and sys.argv[1].isdigit() :
+    idx = int(sys.argv[1])
+    if idx >= len(pyports) :
+      print("Sorry, port index " + sys.argv[1] + " out of range")
+      idx = 0
+  if (pyports[idx].manufacturer is None) :
+    print("Connecting to "+pyports[idx].device)
   else :
-    print("Connecting to "+pyports[0].device+" ("+pyports[0].manufacturer+")")
+    print("Connecting to "+pyports[idx].device+" ("+pyports[idx].manufacturer+")")
   if platform.system() == 'Windows' :
-    os.system('putty -serial '+pyports[0].device+' -sercfg 115200')
+    os.system('putty -serial '+pyports[idx].device+' -sercfg 115200')
   else :
-    os.system('picocom '+pyports[0].device+' -b115200')
+    os.system('picocom '+pyports[idx].device+' -b115200')
 
 if __name__ == "__main__":
     main()
