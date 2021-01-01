@@ -18,14 +18,14 @@ args = sys.argv
 if '--device' in sys.argv :
   p = sys.argv.index('--device') + 1
   if p >= len(sys.argv) :
-  	print("# Error: device path or index expected after '--device'")
-  	sys.exit(1)
+    print("# Error: device path or index expected after '--device'")
+    sys.exit(1)
   if sys.argv[p].isdigit() :
-  	idx = int(sys.argv[p])
-  	args = sys.argv[0:p-1]+sys.argv[p+1:]
+    idx = int(sys.argv[p])
+    args = sys.argv[0:p-1]+sys.argv[p+1:]
   else:
-  	cmd = "pyboard " + " ".join('"'+arg+'"' for arg in sys.argv[1:])
-  	
+    cmd = "pyboard " + " ".join('"'+arg+'"' for arg in sys.argv[1:])
+    
 if cmd is None :
   for p in ports :
     if p.manufacturer in ['Micro Python',\
@@ -36,6 +36,7 @@ if cmd is None :
     or 'USB to UART' in p.description \
     or 'BBC micro:bit' in p.description :
       pyports.append(p)
+  
   if len(pyports) == 0 :
     print("No MicroPython device found")
     for p in ports :
@@ -47,14 +48,16 @@ if cmd is None :
                            else "No description")
       )
     sys.exit(1)
+  
   if len(pyports) > 1 :
     print("MicroPython devices found:")
     i = 0
     for p in pyports :
       print("  (" + str(i) + ") " + p.device + " - " + p.description)
       i += 1
-    if idx is None :
-      idx = 0
+    
+  if idx is None :
+    idx = 0
 
   cmd = "pyboard --device " + pyports[idx].device + " " + " ".join('"'+arg+'"' for arg in args[1:])
 
