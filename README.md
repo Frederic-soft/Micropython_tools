@@ -1,4 +1,4 @@
-# Micropython
+# Micropython tools
 Micropython tools:
 - **pyterm** opens picocom on a connected Micropython device
 - **pyload** loads a Python file on a connected Micropython device
