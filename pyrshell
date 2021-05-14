@@ -10,7 +10,7 @@ and pick the first one (but prints all devices found).
 """
 def main():
   if (len(sys.argv) > 1) and not sys.argv[1].isdigit() :
-    pyports = [serial.tools.list_ports_common.ListPortInfo()]
+    pyports = [serial.tools.list_ports_common.ListPortInfo(sys.argv[1])]
     pyports[0].device = sys.argv[1]
   else:
     ports = serial.tools.list_ports.comports()
