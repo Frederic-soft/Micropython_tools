@@ -45,7 +45,11 @@ def main():
     idx = int(sys.argv[1])
     if idx >= len(pyports) :
       print("Sorry, port index " + sys.argv[1] + " out of range")
-      idx = 0
+      sys.exit(1)
+  elif len(pyports) > 1 :
+    print("Please chose the device to which you want to connect")
+    sys.exit(1)
+  
   os.system('rshell --port ' + pyports[idx].device + ' --baud 115200')
 
 if __name__ == "__main__":

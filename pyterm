@@ -47,7 +47,11 @@ def main():
     idx = int(sys.argv[1])
     if idx >= len(pyports) :
       print("Sorry, port index " + sys.argv[1] + " out of range")
-      idx = 0
+      sys.exit(1)
+  elif len(pyports) > 1 :
+    print("Please chose the device to which you want to connect")
+    sys.exit(1)
+
   if (pyports[idx].manufacturer is None) :
     print("Connecting to "+pyports[idx].device)
   else :

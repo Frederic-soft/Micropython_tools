@@ -57,7 +57,12 @@ if cmd is None :
       i += 1
     
   if idx is None :
-    idx = 0
+    if len(pyports) == 1 :
+      idx = 0
+    else:
+      print("Please chose the device to which you want to connect")
+      sys.exit(1)
+    
 
   cmd = "pyboard --device " + pyports[idx].device + " " + " ".join('"'+arg+'"' for arg in args[1:])
 
