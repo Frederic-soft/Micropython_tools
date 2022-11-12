@@ -1,19 +1,19 @@
 #!/bin/sh
 INSTALLDIR=/opt/bin
 TOOLS="pyload \
-	  	pyrshell \
-	  	pyterm"
+       pyrshell \
+       pyterm"
 
 ME=`realpath $0`
 CURDIR=`dirname ${ME}`
 
 echo "Installing from ${CURDIR} to ${INSTALLDIR}"
-read -p "Continue [y/n]? " -r
-if [[ ! ${REPLY} =~ ^[Yy]$ ]]
-then
-	exit 1
-fi
-if [[ ! -d ${INSTALLDIR} ]]
+read -p "Continue [y/n]? " REPLY
+case "${REPLY}" in
+  N|n)
+    exit 1;;
+esac
+if [ ! -d ${INSTALLDIR} ]
 then
 	mkdir -p ${INSTALLDIR}
 fi
