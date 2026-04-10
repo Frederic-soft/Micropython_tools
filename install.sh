@@ -1,5 +1,5 @@
 #!/bin/sh
-INSTALLDIR=/opt/bin
+INSTALLDIR=$HOME/bin
 TOOLS="pyload \
        pyrshell \
        pyterm"

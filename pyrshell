@@ -20,6 +20,7 @@ def main():
                             'MicroPython',\
                             'OpenMV',\
                             'Silicon Labs',\
+                            'Espressif',\
                             'Microsoft'] \
       or 'USB to UART' in p.description :
         pyports.append(p)
